@@ -4,6 +4,7 @@ const rooms = [
   {
     image: "/images/room1.png",
     title: "Deluxe Room",
+    price: "₹2,499",
     desc: "Elegant interiors with modern comforts and round-the-clock room service.",
     amenities: [
       "King Size Bed",
@@ -15,6 +16,7 @@ const rooms = [
   {
     image: "/images/room2.jpeg",
     title: "Premium Deluxe Room",
+    price: "₹2,999",
     desc: "Thoughtfully designed for a truly regal stay with luxury appointments.",
     amenities: [
       "Flat Screen TV",
@@ -24,8 +26,9 @@ const rooms = [
     ],
   },
   {
-    image: "/images/room3.png", // Placeholder
-    title: "Executive Deluxe",
+    image: "/images/room3.png",
+    title: "Super Premium Deluxe Room",
+    price: "₹3,499",
     desc: "Spacious luxury designed for both business and leisure travelers.",
     amenities: [
       "Work Desk",
@@ -41,14 +44,17 @@ const RoomsSection = () => {
     <section id="rooms" className="bg-cream py-24 px-6 md:px-20">
       <div className="text-center mb-14">
         <span className="section-tag">Luxury Accommodations</span>
-        <h2 className="section-title">15 Well-Appointed Rooms</h2>
+
+        <h2 className="section-title">Select Well-Appointed Rooms</h2>
+
         <span className="block text-gold text-lg tracking-[4px] mt-2 select-none">
           — ✦ —
         </span>
+
         <p className="max-w-2xl mx-auto mt-6 text-navy/60 text-[0.9rem] leading-relaxed">
-          HOUSE OF LORD offers 15 beautifully appointed Deluxe rooms, each
-          crafted to evoke the grandeur of ancient royal palaces while providing
-          modern world-class hospitality.
+          HOUSE OF LORD offers beautifully appointed Deluxe rooms, each crafted
+          to evoke the grandeur of ancient royal palaces while providing modern
+          world-class hospitality.
         </p>
       </div>
 
@@ -62,24 +68,42 @@ const RoomsSection = () => {
             transition={{ delay: idx * 0.1, duration: 0.6 }}
             className="group bg-white rounded-[4px] overflow-hidden shadow-sm hover:shadow-md transition-all"
           >
+            {/* Room Image */}
             <div className="h-[280px] overflow-hidden relative">
               <img
                 src={room.image}
                 alt={room.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
+
               <div className="absolute top-4 right-4 bg-gold px-3 py-1 text-navy text-[0.6rem] font-bold tracking-widest uppercase rounded-full">
                 Boutique
               </div>
             </div>
+
+            {/* Room Content */}
             <div className="p-8">
-              <h3 className="font-serif text-2xl font-semibold text-navy mb-3">
-                {room.title}
-              </h3>
+              {/* Title + Price */}
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <h3 className="font-serif text-2xl font-semibold text-navy leading-tight">
+                  {room.title}
+                </h3>
+
+                <div className="bg-gold/10 border border-gold/20 rounded-[4px] px-4 py-2 text-center flex-shrink-0">
+                  <p className="text-2xl font-bold text-gold">{room.price}</p>
+
+                  <p className="text-[0.65rem] tracking-[2px] uppercase text-navy/50">
+                    Per Night
+                  </p>
+                </div>
+              </div>
+
+              {/* Description */}
               <p className="text-[0.85rem] text-navy/60 leading-relaxed mb-6">
                 {room.desc}
               </p>
 
+              {/* Amenities */}
               <div className="grid grid-cols-2 gap-y-3 mb-8">
                 {room.amenities.map((amenity, i) => (
                   <div
@@ -97,13 +121,17 @@ const RoomsSection = () => {
                     >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
+
                     {amenity}
                   </div>
                 ))}
               </div>
 
+              {/* CTA Button */}
               <a
-                href="https://wa.me/917788000911?text=Namaste! I want to enquire about Deluxe room availability."
+                href={`https://wa.me/917788000911?text=${encodeURIComponent(
+                  `Namaste! I want to enquire about ${room.title} availability.`
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline-gold w-full justify-center group"
