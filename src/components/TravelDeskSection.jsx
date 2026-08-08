@@ -1,52 +1,39 @@
 import { motion } from 'framer-motion';
+import { travelServices, siteMetadata } from '../data/siteConfig';
+
+const serviceIcons = [
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" />
+      <path d="M12 22V12" />
+      <path d="M12 12L20 7" />
+      <path d="M12 12L4 7" />
+      <path d="M12 7V2" />
+    </svg>
+  ),
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="1" y="10" width="22" height="8" rx="2" />
+      <path d="M7 10l2-4h6l2 4" />
+      <circle cx="7" cy="18" r="2" />
+      <circle cx="17" cy="18" r="2" />
+    </svg>
+  ),
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  ),
+  (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
+  ),
+];
 
 const TravelDeskSection = () => {
-  const travelServices = [
-    {
-      title: "Jagannath Darshan",
-      desc: "Priority and hassle-free Darshan arrangements for Lord Jagannath at Puri.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" />
-          <path d="M12 22V12" />
-          <path d="M12 12L20 7" />
-          <path d="M12 12L4 7" />
-          <path d="M12 7V2" />
-        </svg>
-      )
-    },
-    {
-      title: "Car Rentals",
-      desc: "Premium and budget-friendly car rental services for local and outstation travel.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <rect x="1" y="10" width="22" height="8" rx="2" />
-          <path d="M7 10l2-4h6l2 4" />
-          <circle cx="7" cy="18" r="2" />
-          <circle cx="17" cy="18" r="2" />
-        </svg>
-      )
-    },
-    {
-      title: "Puri City Tours",
-      desc: "Guided tours to Konark Sun Temple, Chilika Lake, and other local landmarks.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-      )
-    },
-    {
-      title: "Railway/Airport Pickup",
-      desc: "Timely and safe pickup and drop services from nearby transit hubs.",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-        </svg>
-      )
-    }
-  ];
+  const whatsappUrl = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent("Namaste! I would like to enquire about Jagannath Darshan and travel services.")}`;
 
   return (
     <section id="travel" className="bg-white py-24 px-6 md:px-20 text-navy overflow-hidden relative border-t border-navy/5">
@@ -91,7 +78,7 @@ const TravelDeskSection = () => {
             </div>
 
             <a 
-              href="https://wa.me/917788000911?text=Namaste! I would like to enquire about Jagannath Darshan and travel services." 
+              href={whatsappUrl} 
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-gold group"
@@ -114,7 +101,7 @@ const TravelDeskSection = () => {
                 className="bg-white border border-navy/10 p-8 rounded-[4px] hover:border-gold transition-all duration-300 group cursor-default shadow-sm"
               >
                 <div className="w-12 h-12 mb-6 text-gold transition-transform duration-300 flex items-center justify-center">
-                  {service.icon}
+                  {serviceIcons[idx % serviceIcons.length]}
                 </div>
                 <h4 className="font-serif text-xl font-bold text-navy mb-3 transition-colors duration-300">{service.title}</h4>
                 <p className="text-navy/50 text-[0.8rem] leading-relaxed group-hover:text-navy/70 transition-colors duration-300">{service.desc}</p>

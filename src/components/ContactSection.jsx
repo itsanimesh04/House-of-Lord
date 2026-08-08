@@ -1,10 +1,44 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { siteMetadata } from '../data/siteConfig';
 
 const ContactSection = () => {
+  const [submitStatus, setSubmitStatus] = useState('idle');
+  const [whatsappDraftUrl, setWhatsappDraftUrl] = useState('');
+
+  const handleEnquirySubmit = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get('name').trim();
+    const email = formData.get('email').trim();
+    const phone = formData.get('phone').trim();
+    const message = formData.get('message').trim();
+
+    const whatsappMessage = [
+      `New enquiry from ${siteMetadata.name} website:`,
+      '',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Phone: ${phone}`,
+      '',
+      'Message:',
+      message,
+    ].join('\n');
+
+    const whatsappHref = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    setWhatsappDraftUrl(whatsappHref);
+    setSubmitStatus('ready');
+    window.open(whatsappHref, '_blank', 'noopener,noreferrer');
+  };
+
+  const scheduleVisitUrl = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent(`Namaste! I would like to schedule a visit to ${siteMetadata.name}.`)}`;
+
   return (
     <section id="contact" className="bg-cream py-24 px-6 md:px-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -25,7 +59,7 @@ const ContactSection = () => {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <p className="text-[0.85rem] text-navy/70">houseoflordhotel@gmail.com</p>
+              <p className="text-[0.85rem] text-navy/70">{siteMetadata.email}</p>
             </div>
 
             <div className="flex items-start gap-4">
@@ -35,8 +69,8 @@ const ContactSection = () => {
                 </svg>
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-[0.85rem] text-navy/70">+91 77880 00910</p>
-                <p className="text-[0.85rem] text-navy/70">+91 77880 00911</p>
+                <p className="text-[0.85rem] text-navy/70">{siteMetadata.contactPhone1}</p>
+                <p className="text-[0.85rem] text-navy/70">{siteMetadata.contactPhone2}</p>
               </div>
             </div>
 
@@ -48,24 +82,24 @@ const ContactSection = () => {
                 </svg>
               </div>
               <p className="text-[0.85rem] text-navy/70 leading-relaxed">
-                Plot No. 906, K8 Kalinga Nagar,<br />
-                Ghatikia, Back Side of SUM Hospital,<br />
-                Bhubaneswar - 751003
+                {siteMetadata.address.line1},<br />
+                {siteMetadata.address.line2},<br />
+                {siteMetadata.address.city} - {siteMetadata.address.pincode}
               </p>
             </div>
           </div>
 
-          <a 
-            href="https://wa.me/917788000911?text=Namaste! I would like to schedule a visit to House of Lord." 
+          <a
+            href={scheduleVisitUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-gold mt-8"
           >
-            Schedule a Visit &nbsp;›
+            Schedule a Visit &nbsp;&gt;
           </a>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -73,43 +107,77 @@ const ContactSection = () => {
           className="bg-white p-10 shadow-sm rounded-[4px]"
         >
           <div className="mb-6 p-4 bg-navy/5 border-l-4 border-gold text-[0.8rem] text-navy/70 italic">
-            All enquiries are synchronized with our Central Booking Office via Email and WhatsApp for instant assistance.
+            All enquiries are prepared for our Central Booking Office on WhatsApp for instant assistance.
           </div>
-          <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col gap-5" onSubmit={handleEnquirySubmit}>
             <div className="flex flex-col gap-2">
-              <label className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Your Name</label>
-              <input 
-                type="text" 
-                placeholder="Enter your full name" 
+              <label htmlFor="contact-name" className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Your Name</label>
+              <input
+                id="contact-name"
+                name="name"
+                type="text"
+                placeholder="Enter your full name"
+                required
                 className="w-full px-4 py-3 border border-navy/15 rounded-[4px] font-sans text-[0.85rem] text-navy bg-cream outline-none focus:border-gold transition-colors"
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Email Address</label>
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
+              <label htmlFor="contact-email" className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Email Address</label>
+              <input
+                id="contact-email"
+                name="email"
+                type="email"
+                placeholder="Enter your email"
+                required
                 className="w-full px-4 py-3 border border-navy/15 rounded-[4px] font-sans text-[0.85rem] text-navy bg-cream outline-none focus:border-gold transition-colors"
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Phone Number</label>
-              <input 
-                type="tel" 
-                placeholder="+91 00000 00000" 
+              <label htmlFor="contact-phone" className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Phone Number</label>
+              <input
+                id="contact-phone"
+                name="phone"
+                type="tel"
+                placeholder="+91 00000 00000"
+                required
                 className="w-full px-4 py-3 border border-navy/15 rounded-[4px] font-sans text-[0.85rem] text-navy bg-cream outline-none focus:border-gold transition-colors"
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Message</label>
-              <textarea 
-                placeholder="Tell us about your event or enquiry…" 
+              <label htmlFor="contact-message" className="text-[0.68rem] font-bold tracking-[1.5px] uppercase text-navy">Message</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                placeholder="Tell us about your event or enquiry..."
+                required
                 className="w-full px-4 py-3 border border-navy/15 rounded-[4px] font-sans text-[0.85rem] text-navy bg-cream outline-none focus:border-gold transition-colors resize-vertical min-h-[120px]"
               />
             </div>
-            <button className="btn btn-gold w-full justify-center">
+            <button type="submit" className="btn btn-gold w-full justify-center">
               Send Enquiry
             </button>
+            {submitStatus === 'ready' && (
+              <div className="rounded-[4px] border border-gold/40 bg-gold/10 px-4 py-3 text-[0.78rem] leading-6 text-navy/75">
+                <p className="font-semibold text-navy">
+                  Thank you. Your enquiry is ready on WhatsApp.
+                </p>
+                <p>
+                  Please tap Send in WhatsApp. If nothing opened, message us manually at{' '}
+                  <a className="font-semibold text-navy underline decoration-gold underline-offset-4" href={`https://wa.me/${siteMetadata.whatsappNumber}`}>
+                    {siteMetadata.contactPhone2}
+                  </a>
+                  .
+                </p>
+                <a
+                  href={whatsappDraftUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex font-semibold uppercase tracking-[1.5px] text-gold hover:text-navy transition-colors"
+                >
+                  Open WhatsApp again
+                </a>
+              </div>
+            )}
           </form>
         </motion.div>
       </div>

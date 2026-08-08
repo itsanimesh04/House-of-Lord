@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { heroContent, siteMetadata } from '../data/siteConfig';
 
 const Hero = () => {
+  const whatsappUrl = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent(heroContent.whatsappMessage)}`;
+
   return (
     <section
       id="home"
@@ -10,7 +13,7 @@ const Hero = () => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0 bg-navy-dark"
         style={{
-          backgroundImage: "url('/images/hero-building.png')",
+          backgroundImage: `url('${heroContent.bgImage}')`,
           backgroundPosition: "center 30%",
         }}
       />
@@ -24,25 +27,28 @@ const Hero = () => {
         className="relative z-[2] max-w-[700px] px-6 md:px-20 text-white"
       >
         <span className="block font-sans text-[0.72rem] font-bold tracking-[4px] text-gold uppercase mb-4">
-          Baroque Inspired. Modern Luxury.
+          {heroContent.tagline}
         </span>
         <h1 className="font-serif text-[clamp(3rem,6vw,5.5rem)] font-bold leading-[1.08] tracking-[-1px] mb-[18px]">
-          HOUSE
+          {heroContent.titleLine1}
           <br />
-          OF LORD
+          {heroContent.titleLine2}
           <span className="block w-[72px] h-[2px] bg-gold mt-[18px] mb-[22px]" />
         </h1>
         <p className="font-sans text-[0.8rem] tracking-[3px] uppercase text-white/80 mb-10 leading-relaxed">
-          Bhubaneswar's Premier Boutique Hotel{" "}
+          {heroContent.subtitle}{" "}
           <br className="hidden md:block" />
-          <span className="text-gold">Grandeur</span> &nbsp;|&nbsp;{" "}
-          <span className="text-gold">Warmth</span> &nbsp;|&nbsp;{" "}
-          <span className="text-gold">Timeless Elegance</span>
+          {heroContent.highlights.map((item, idx) => (
+            <span key={item}>
+              <span className="text-gold">{item}</span>
+              {idx < heroContent.highlights.length - 1 && <span> &nbsp;|&nbsp; </span>}
+            </span>
+          ))}
         </p>
 
         <div className="flex flex-wrap gap-4">
           <a
-            href="https://wa.me/917788000911?text=Namaste! I would like to book an event or room at House of Lord."
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-gold group"

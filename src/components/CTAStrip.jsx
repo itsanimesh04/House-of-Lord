@@ -1,11 +1,13 @@
+import { siteMetadata } from "../data/siteConfig";
+
 const CTAStrip = () => {
-  const whatsappUrl = "https://wa.me/917788000911?text=Namaste! I would like to plan my stay and Jagannath Darshan.";
+  const whatsappUrl = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent("Namaste! I would like to plan my stay and Jagannath Darshan.")}`;
 
   return (
     <div className="bg-navy-dark px-6 md:px-20 py-10 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-white/5">
       <div className="flex flex-col gap-2 text-center md:text-left">
         <p className="font-serif text-[1.4rem] md:text-[1.6rem] font-normal text-white italic">
-          Experience timeless elegance in the heart of Bhubaneswar.
+          Experience timeless elegance in the heart of {siteMetadata.address.city}.
         </p>
         <p className="text-white/40 text-[0.7rem] font-bold tracking-[3px] uppercase">
           Affordably Priced &bull; Genuine Hospitality &bull; Baroque Design

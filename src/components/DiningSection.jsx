@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { diningContent, siteMetadata } from '../data/siteConfig';
 
 const DiningSection = () => {
+  const cafeWhatsappUrl = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent(diningContent.rooftopCafe.whatsappMessage)}`;
+
   return (
     <section
       id="dining"
@@ -17,34 +20,25 @@ const DiningSection = () => {
             className="order-2 lg:order-1"
           >
             <div className="inline-block bg-gold px-4 py-1.5 text-navy text-[0.65rem] font-bold tracking-[2px] uppercase rounded-full mb-6">
-              Opening Soon
+              {diningContent.rooftopCafe.statusBadge}
             </div>
-            <span className="section-tag !text-left">State-of-the-Art</span>
+            <span className="section-tag !text-left">{diningContent.rooftopCafe.tagline}</span>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-navy leading-tight mb-6">
-              Rooftop Café.
+              {diningContent.rooftopCafe.title}
             </h2>
             <p className="text-navy/70 text-[0.9rem] leading-relaxed mb-8">
-              A fully glass-covered Rooftop Royal Café offering panoramic views
-              of Bhubaneswar. Experience the city like never before in a
-              sophisticated ambiance that blends modern design with
-              Baroque-inspired elegance.
+              {diningContent.rooftopCafe.desc}
             </p>
             <div className="flex flex-col gap-4 mb-10 text-[0.75rem] font-bold tracking-widest uppercase text-navy/80">
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-gold rounded-full" />
-                Panoramic City Views
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-gold rounded-full" />
-                Fully Glass-Covered Setting
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-gold rounded-full" />
-                Premium Artisan Coffee
-              </div>
+              {diningContent.rooftopCafe.highlights.map((highlight, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full" />
+                  {highlight}
+                </div>
+              ))}
             </div>
             <a
-              href="https://wa.me/917788000911?text=Namaste! I want to enquire about the Royal Cafe opening."
+              href={cafeWhatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-gold group"
@@ -71,8 +65,8 @@ const DiningSection = () => {
           >
             <div className="absolute -top-6 -right-6 w-full h-full border-2 border-gold rounded-[4px] z-0" />
             <img
-              src="/images/cafe.png"
-              alt="Royal Cafe Rooftop"
+              src={diningContent.rooftopCafe.image}
+              alt={diningContent.rooftopCafe.title}
               className="relative z-10 w-full h-[500px] object-cover rounded-[4px] shadow-xl"
             />
           </motion.div>
@@ -87,8 +81,8 @@ const DiningSection = () => {
             transition={{ duration: 0.8 }}
           >
             <img
-              src="/images/restaurant.png"
-              alt="Multi-Cuisine Restaurant"
+              src={diningContent.restaurant.image}
+              alt={diningContent.restaurant.title}
               className="w-full h-[400px] object-cover rounded-[4px] shadow-lg"
             />
           </motion.div>
@@ -100,21 +94,17 @@ const DiningSection = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block bg-navy/10 px-4 py-1 text-navy text-[0.6rem] font-bold tracking-[2px] uppercase rounded-full mb-6">
-              Opening Soon
+              {diningContent.restaurant.statusBadge}
             </div>
-            <span className="section-tag !text-left">Dining Facilities</span>
+            <span className="section-tag !text-left">{diningContent.restaurant.tagline}</span>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-navy leading-tight mb-6">
-              Multi-Cuisine Restaurant
+              {diningContent.restaurant.title}
             </h2>
             <p className="text-navy/70 text-[0.85rem] leading-relaxed mb-6">
-              Located on the ground floor, our upcoming featured restaurant will
-              offer an extensive menu featuring authentic local flavors and
-              international favorites. Experience genuine hospitality in one of
-              Bhubaneswar's most distinguished boutique settings.
+              {diningContent.restaurant.desc}
             </p>
             <div className="p-6 bg-navy/5 border-l-4 border-gold italic text-[0.85rem] text-navy/80 leading-relaxed">
-              "A culinary landmark on the ground floor, poised to provide
-              exceptional experiences in a setting of timeless elegance."
+              "{diningContent.restaurant.quote}"
             </div>
           </motion.div>
         </div>

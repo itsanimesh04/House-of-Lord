@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { navLinks, siteMetadata } from '../data/siteConfig';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,21 +15,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
-
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Rooms', path: '/rooms' },
-    { name: 'Dining & Cafe', path: '/dining' },
-    { name: 'Travel Desk', path: '/travel' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Contact Us', path: '/contact' },
-  ];
-
-  const whatsappUrl = "https://wa.me/917788000911?text=Namaste! I would like to enquire about House of Lord.";
+  const whatsappUrl = `https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent(siteMetadata.defaultWhatsappMessage)}`;
 
   return (
     <>
@@ -39,7 +26,7 @@ const Navbar = () => {
       >
         <div className="flex-shrink-0">
           <Link to="/">
-            <img src="/images/logo.svg" alt="House of Lord" className="h-12 w-auto object-contain" />
+            <img src="/images/logo.svg" alt={siteMetadata.name} className="h-12 w-auto object-contain" />
           </Link>
         </div>
 
@@ -103,6 +90,7 @@ const Navbar = () => {
               <li key={link.name}>
                 <Link 
                   to={link.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className={`font-sans text-lg font-semibold tracking-[2px] uppercase transition-colors ${
                     location.pathname === link.path ? 'text-gold' : 'text-white hover:text-gold'
                   }`}
@@ -116,6 +104,7 @@ const Navbar = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 px-8 py-3 border-[1.5px] border-gold text-navy-dark bg-gold font-sans text-sm font-bold tracking-[2px] uppercase mt-4"
               >
                 Book Now

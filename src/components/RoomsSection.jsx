@@ -1,43 +1,5 @@
 import { motion } from "framer-motion";
-
-const rooms = [
-  {
-    image: "/images/room1.png",
-    title: "Deluxe Room",
-    price: "₹2,499",
-    desc: "Elegant interiors with modern comforts and round-the-clock room service.",
-    amenities: [
-      "King Size Bed",
-      "High Speed Wi-Fi",
-      "Intercom",
-      "Air Conditioning",
-    ],
-  },
-  {
-    image: "/images/room2.jpeg",
-    title: "Premium Deluxe Room",
-    price: "₹2,999",
-    desc: "Thoughtfully designed for a truly regal stay with luxury appointments.",
-    amenities: [
-      "Flat Screen TV",
-      "Premium Bedding",
-      "24-Hour Service",
-      "Secure Safe",
-    ],
-  },
-  {
-    image: "/images/room3.png",
-    title: "Super Premium Deluxe Room",
-    price: "₹3,499",
-    desc: "Spacious luxury designed for both business and leisure travelers.",
-    amenities: [
-      "Work Desk",
-      "Coffee Maker",
-      "Regal Decor",
-      "Modern Facilities",
-    ],
-  },
-];
+import { rooms, siteMetadata } from "../data/siteConfig";
 
 const RoomsSection = () => {
   return (
@@ -52,7 +14,7 @@ const RoomsSection = () => {
         </span>
 
         <p className="max-w-2xl mx-auto mt-6 text-navy/60 text-[0.9rem] leading-relaxed">
-          HOUSE OF LORD offers beautifully appointed Deluxe rooms, each crafted
+          {siteMetadata.name} offers beautifully appointed Deluxe rooms, each crafted
           to evoke the grandeur of ancient royal palaces while providing modern
           world-class hospitality.
         </p>
@@ -129,7 +91,7 @@ const RoomsSection = () => {
 
               {/* CTA Button */}
               <a
-                href={`https://wa.me/917788000911?text=${encodeURIComponent(
+                href={`https://wa.me/${siteMetadata.whatsappNumber}?text=${encodeURIComponent(
                   `Namaste! I want to enquire about ${room.title} availability.`
                 )}`}
                 target="_blank"
